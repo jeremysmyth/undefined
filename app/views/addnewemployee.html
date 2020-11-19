@@ -19,7 +19,7 @@
     <div class="govuk-error-message">{{ errormessage }}</div> 
 {% endif %}
 
-<form method=post action="/addnewemployee">
+<form method=post action="/addnewemployee" >
     {% call govukFieldset({
     legend: {
         text: "Add a new employee",
@@ -32,7 +32,8 @@
         label: {
         html: 'Employee Number:'
         },
-        id: "id",
+        id: "employeeID",
+        classes: "govuk-input--width-10",
         name: "EmployeeNumber"
     }) }}
 
@@ -49,7 +50,7 @@
         text: "Address:"
         },
         classes: "govuk-!-width-two-thirds",
-        id: "countrycode",
+        id: "address",
         name: "Address"
     }) }}
 
@@ -57,8 +58,8 @@
         label: {
         text: "PostCode:"
         },
-        classes: "govuk-!-width-two-thirds",
-        id: "district",
+        classes: "govuk-input--width-10",
+        id: "postcode",
         name: "PostCode"
     }) }}
 
@@ -67,7 +68,7 @@
         text: "NI Number:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
+        id: "niNumber",
         name: "NI"
     }) }}
 
@@ -76,7 +77,6 @@
         text: "IBAN:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
         name: "IBAN"
     }) }}
 
@@ -85,7 +85,6 @@
         text: "BIC:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
         name: "BIC"
     }) }}
 
@@ -94,8 +93,9 @@
         text: "Salary:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
-        name: "Salary"
+        id: "salary",
+        name: "Salary",
+        inputmode: "numeric"
     }) }}
 
     {{ govukSelect({
