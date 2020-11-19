@@ -56,4 +56,18 @@ router.post('/addsalesemployee', async (req, res) => {
     res.redirect('/list-employees')
 })
 
+router.get('/addnewproject', async (req, res) => {
+    res.render('addproject')
+})
+
+router.post('/addnewproject', async (req, res) => {
+    let project = req.body
+    await employeedata.addProject(project)
+    res.redirect('/') 
+})
+
+router.get('/employeeproject', async (req, res) => {
+    res.render('employeeproject', { employees: await employeedata.getProjectEmployees()})
+})
+
 module.exports = router
