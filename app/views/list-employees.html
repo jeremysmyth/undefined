@@ -25,7 +25,8 @@
                     { text: employee.IBAN }, 
                     { text: employee.BIC }, 
                     { text: employee.Salary },
-                    { text: employee.EmployeeNumber }
+                    { text: employee.EmployeeNumber },
+                    { text: employee.DepartmentName }
                 ]), 
                 employeerows) %}
         {% endfor %}
@@ -42,7 +43,8 @@
                 { text: "IBAN"},
                 { text: "BIC"},
                 { text: "Salary"},
-                { text: "Employee Number"} ],
+                { text: "Employee Number"},
+                { text: "Department Name"} ],
             rows: employeerows })
         }}
 
