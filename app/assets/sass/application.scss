@@ -18,3 +18,15 @@ $govuk-assets-path: '/govuk/assets/';
 @import "components/cookie-banner";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+.highest-sales{
+  text-align: center;
+}
+.add-background{
+  background: #D3D3D3;
+  border-radius: 10px;
+  padding: 50px;
+  margin: auto;
+}
+.govuk-list--bullet{
+  list-style-type: none !important;
+}

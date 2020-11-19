@@ -1,0 +1,28 @@
+Index: app/employeedata.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/employeedata.js	(revision 510bab6cd6b9864ccd636cd9568f5d1b340aa8c3)
++++ app/employeedata.js	(date 1605783687462)
+@@ -1,0 +1,19 @@
++const mysql = require('mysql');
++const dbconfig = require('./dbconfig.json');
++const util = require ('util');
++const db = wrapDB(dbconfig);
++
++function wrapDB (dbconfig) {
++  const pool = mysql.createPool(dbconfig)
++  return {
++    query(sql, args) {
++      console.log("in query in wrapper")
++      return util.promisify( pool.query )
++        .call(pool, sql, args)
++    },
++    release () {
++      return util.promisify( pool.releaseConnection )
++        .call( pool )
++    }
++  }
++}
+\ No newline at end of file
