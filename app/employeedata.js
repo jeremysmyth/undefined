@@ -80,6 +80,22 @@ getHighestSalesReport = async () => {
     )
 }
 
+getEmployeeProjects = async () => {
+    return await db.query (
+        "SELECT Project.ProjectName, Employee.Name" + 
+        " FROM Project, Employee, Assignment" + 
+        " WHERE Project.ProjectID = Assignment.ProjectID" + 
+        " AND Employee.EmployeeID = Assignment.EmployeeID" +
+        " ORDER BY Project.ProjectName;"
+    )
+}
+
+getAllProjects = async () => {
+    return await db.query (
+        "SELECT * FROM Project;"
+    )
+}
+
 exports.getAllEmployees = async () => {
     return await getEmployees()
 }
@@ -100,7 +116,6 @@ exports.getAllDepartments = async () => {
     return await getDepartments()
 }
 
-
 exports.getAllSalesEmployees = async () => {
     return await getEmployeesSalesDepartment()
 }
@@ -111,4 +126,22 @@ exports.getEmployeeGrossPay = async () => {
 
 exports.getHighestSalesEmployee = async () => {
     return await getHighestSalesReport()
+}
+
+exports.addProject = async (project) => {
+    let results = await db.query('INSERT INTO Project SET ?', project)
+    return results.insertId;
+}
+
+exports.getProjectEmployees = async () => {
+    return await getEmployeeProjects ()
+}
+
+exports.getProjects = async () => {
+    return await getAllProjects()
+}
+
+exports.addEmployeeProject = async (employeeProject) => {
+    let results = await db.query('INSERT INTO Assignment SET ?', employeeProject)
+    return results.insertId;
 }
