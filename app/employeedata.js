@@ -39,6 +39,16 @@ getEmployeesByDepartment = async (departmentId) => {
     )
 }
 
+getEmployeesSalesDepartment = async () => {
+    return await db.query (
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+        " FROM Employee, Department, SalesEmployee" + 
+        " WHERE Employee.DepartmentID = 4" +
+        " AND Department.DepartmentID = Employee.DepartmentID" +
+        " AND SalesEmployee.EmployeeID = Employee.EmployeeID;",
+    )
+}
+
 getDepartments = async () => {
     return await db.query (
         "SELECT * FROM Department"
@@ -58,4 +68,8 @@ exports.getAllEmployeesPerDepartment = async (departmentId) => {
 }
 exports.getAllDepartments = async () => {
     return await getDepartments()
+}
+
+exports.getAllSalesEmployees = async () => {
+    return await getEmployeesSalesDepartment()
 }
