@@ -22,17 +22,71 @@ const db = wrapDB(dbconfig)
 // Function to get the employee data
 // which will be called from the router when reading the list-employees template
 getEmployees = async () => {
-    return await db.query(
-        "SELECT *" +
-        " FROM Employee;"
+    return await db.query (
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+        " FROM Employee, Department " +
+        " WHERE Employee.DepartmentID = Department.DepartmentID;"
     )
 }
 
-exports.getEmployeesByDepartment = async () => {
+getEmployeesByDepartment = async (departmentId) => {
+    return await db.query (
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+        " FROM Employee, Department" + 
+        " WHERE Employee.DepartmentID = ?" +
+        " AND Department.DepartmentID = Employee.DepartmentID;",
+        [departmentId]
+    )
+}
+
+getDepartments = async () => {
+    return await db.query (
+        "SELECT * FROM Department"
+    )
+}
+
+getGrossPayReport = async () => {
+    return await db.query (
+        "SELECT Name, ROUND((Salary / 12) * 0.75, 2) as GrossPay" + 
+        " FROM Employee" + 
+        " LEFT JOIN SalesEmployee USING (EmployeeID)" + 
+        " WHERE SalesEmployee.EmployeeID IS NULL" +
+        " UNION" +
+        " SELECT Name, ROUND((Salary / 12 + CommissionRate *  TotalSales) * 0.75, 2) as GrossPay" +
+        " FROM Employee" + 
+        " INNER JOIN SalesEmployee USING (EmployeeID);"
+    )
+}
+
+getHighestSalesReport = async () => {
+    return await db.query (
+        "SELECT Employee.Name, SalesEmployee.TotalSales" + 
+        " FROM Employee, SalesEmployee" + 
+        " WHERE Employee.EmployeeID = SalesEmployee.EmployeeID" + 
+        " ORDER BY SalesEmployee.TotalSales DESC" +
+        " LIMIT 1;"
+    )
+}
+
+exports.getAllEmployees = async () => {
     return await getEmployees()
 }
 
 exports.addEmployee = async (newEmployee) => {
     let results = await db.query('INSERT INTO Employee SET ?', newEmployee)
     return results.insertId;
+}
+exports.getAllEmployeesPerDepartment = async (departmentId) => {
+    return await getEmployeesByDepartment (departmentId)
+}
+exports.getAllDepartments = async () => {
+    return await getDepartments()
+}
+
+exports.getEmployeeGrossPay = async () => {
+    return await getGrossPayReport ()
+}
+
+exports.getHighestSalesEmployee = async () => {
+    return await getHighestSalesReport()
 }
