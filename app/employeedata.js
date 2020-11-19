@@ -25,7 +25,7 @@ getEmployees = async () => {
     return await db.query (
         "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
         " FROM Employee, Department " +
-        " WHERE Employee.DepartmentID = Department.DepartmentID;"
+        " WHERE Employee.DepartmentID = Department.DepartmentID ORDER BY Employee.EmployeeID ASC;"
     )
 }
 
