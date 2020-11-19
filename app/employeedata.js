@@ -30,7 +30,7 @@ getEmployees = async () => {
 }
 
 getEmployeesByDepartment = async (departmentId) => {
-    return await db.query (
+    return await db.query ( 
         "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
         " FROM Employee, Department" + 
         " WHERE Employee.DepartmentID = ?" +
@@ -61,6 +61,10 @@ exports.getAllEmployees = async () => {
 
 exports.addEmployee = async (newEmployee) => {
     let results = await db.query('INSERT INTO Employee SET ?', newEmployee)
+    return results.insertId;
+}
+exports.addSalesEmployee = async (salesEmployee) => {
+    let results = await db.query('INSERT INTO SalesEmployee SET ?', salesEmployee)
     return results.insertId;
 }
 exports.getAllEmployeesPerDepartment = async (departmentId) => {

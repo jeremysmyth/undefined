@@ -5,13 +5,12 @@ const employeedata = require('./employeedata')
 
 // Add your routes here - above the module.exports line
 router.get('/list-employees', async (req, res) => {
-
     if (req.query.departmentID && req.query.departmentID != 4) {
         let id = parseInt(req.query.departmentID)
         console.log(id)
-        res.render('list-employees', { employees: await employeedata.getAllEmployeesPerDepartment(id)})
+        res.render('list-sales-employees', { employees: await employeedata.getAllSalesEmployees()})
     }
-    if (req.query.departmentID && req.query.departmentID != 4) {
+    else if(req.query.departmentID === 4) {
         let id = parseInt(req.query.departmentID)
         console.log(id)
         res.render('list-sales-employees', { employees: await employeedata.getAllSalesEmployees()})
@@ -30,6 +29,13 @@ router.post('/addnewemployee', async (req, res) => {
     
     var employee = req.body
     await employeedata.addEmployee(employee)
+    res.redirect('/list-employees')
+})
+
+router.post('/addsalesemployee', async (req, res) => {
+    
+    var employee = req.body
+    await employeedata.addSalesEmployee(employee)
     res.redirect('/list-employees')
 })
 
