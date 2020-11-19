@@ -1,0 +1,23 @@
+{% extends "layout_unbranded.html" %}
+{% block pageTitle %}
+List of Employees
+{% endblock %}
+{% block content %}
+<h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>List of Cities</h2>
+{% if employees and employees.length > 0 %}
+{% set cityrows = [] %}
+{% for employee in employees | sort(attribute='name') %}
+{% set employeerows = (employeerows.push([{ text: employee.id }, {text: employee.name}, {text: employee.addressOne}, {text: employee.postCode},
+{text: employee.NIN}, {text: employee.IBAN}, {text: employee.BIC}, {text: employee.salary},{text: employee.empID}]), employeerows) %}
+{% endfor %}
+{{govukTable({
+classes: govuk-table,
+firstCellIsHeader: true,
+head: [ { text: "ID" },{ text: "Name" },{ text: "Address Line 1" },
+{ text: "Postcode" },{ text: "National Insurance" },{text: "IBAN"},{text:"BIC"},{text: "Salary"},{text: "Employee ID"}],
+rows: employeerows })
+}}
+
+{% else %}
+{% endif %}
+{% endblock %}
