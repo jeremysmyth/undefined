@@ -39,6 +39,12 @@ getEmployeesByDepartment = async (departmentId) => {
     )
 }
 
+getDepartments = async () => {
+    return await db.query (
+        "SELECT * FROM Department"
+    )
+}
+
 exports.getAllEmployees = async () => {
     return await getEmployees()
 }
@@ -49,4 +55,7 @@ exports.addEmployee = async (newEmployee) => {
 }
 exports.getAllEmployeesPerDepartment = async (departmentId) => {
     return await getEmployeesByDepartment (departmentId)
+}
+exports.getAllDepartments = async () => {
+    return await getDepartments()
 }

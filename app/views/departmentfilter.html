@@ -18,9 +18,9 @@
             <div class="govuk-form-group">
                 <label class="govuk-label" for="departmentID">Department Name</label>
                 <select class="govuk-select" id="departmentID" name="departmentID">
-                    <option value="2">Digital Services</option>
-                    <option value="1">Finance</option>
-                    <option value="3">HR</option>
+                    {% for department in departments %}
+                        <option value="{{department.DepartmentID}}">{{department.DepartmentName}}</option>
+                    {% endfor %}
                 </select>
             </div>
             

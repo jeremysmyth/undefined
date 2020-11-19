@@ -18,7 +18,7 @@ router.get('/list-employees', async (req, res) => {
 })
 
 router.get('/filter-by-department', async (req, res) => {
-    res.render('departmentfilter')
+    res.render('departmentfilter', {departments : await employeedata.getAllDepartments()})
 })
 
 router.post('/addnewemployee', async (req, res) => {
