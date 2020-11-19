@@ -1,0 +1,59 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+    List of Sales Employees
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/">Back</a>
+{% endblock %}
+
+{% block content %}
+    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>List of Employees</h2>
+
+    {% if employees and employees.length > 0 %}
+        {% set employeerows = [] %}
+        
+        {% for employee in employees | sort(attribute='name') %}
+            {% set employeerows = 
+                (employeerows.push([
+                    { text: employee.EmployeeID }, 
+                    { text: employee.Name }, 
+                    { text: employee.Address }, 
+                    { text: employee.PostCode },
+                    { text: employee.NI }, 
+                    { text: employee.IBAN }, 
+                    { text: employee.BIC }, 
+                    { text: employee.Salary },
+                    { text: employee.EmployeeNumber },
+                    { text: employee.DepartmentName },
+                    { text: employee.CommissionRate },
+                    { text: employee.TotalSales }
+                ]), 
+                employeerows) %}
+        {% endfor %}
+
+        {{ govukTable({
+            classes: govuk-table,
+            firstCellIsHeader: true,
+            head: [ 
+                { text: "Employee ID" },
+                { text: "Name" },
+                { text: "Address Line" },
+                { text: "Postcode" },
+                { text: "National Insurance" },
+                { text: "IBAN"},
+                { text: "BIC"},
+                { text: "Salary"},
+                { text: "Employee Number"},
+                { text: "Department Name"},
+                { text: "Commission Rate"},
+                { text: "Total Sales"} ],
+            rows: employeerows })
+        }}
+
+    {% else %}
+        <p>There are no Employees</p>
+    {% endif %}
+
+{% endblock %}

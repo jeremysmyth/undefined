@@ -1,6 +1,8 @@
 exports.validateEmployee = (employee) => {
     if (employee.EmployeeNumber.length > 8 || employee.EmployeeNumber == '') {
         return { valid: false, ErrorMessage: 'Please input a valid Employee Number.' }
+    } else if (employee.Name.length > 100 || employee.Name == '') {
+        return { valid: false, ErrorMessage: 'Please input a name.' }
     } else if (employee.Address.length > 200 || employee.Address == '') {
         return { valid: false, ErrorMessage: 'Please input a valid address.' }
     } else if (employee.PostCode.length > 8 || employee.Address == '') {
@@ -14,6 +16,6 @@ exports.validateEmployee = (employee) => {
     } else if (employee.Salary < 7000 || employee.Salary == '') {
         return { valid: false, ErrorMessage: 'The salary should be greater than £7,000.' }
     } else {
-        return { valid: true }
+        return { valid: true, employee }
     }
 }
