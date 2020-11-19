@@ -1,0 +1,38 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+    Employees Gross Pay Report
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/">Back</a>
+{% endblock %}
+
+{% block content %}
+    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>Employees Gross Pay Report</h2>
+
+    {% if employees and employees.length > 0 %}
+        {% set employeerows = [] %}
+        
+        {% for employee in employees | sort(attribute='name') %}
+            {% set employeerows = 
+                (employeerows.push([
+                    { text: employee.Name }, 
+                    { text: employee.GrossPay }
+                ]), 
+                employeerows) %}
+        {% endfor %}
+
+        {{ govukTable({
+            classes: govuk-table,
+            head: [ 
+                { text: "Name" },
+                { text: "Gross Pay"} ],
+            rows: employeerows })
+        }}
+
+    {% else %}
+        <p>There are no Sales Employees</p>
+    {% endif %}
+
+{% endblock %}

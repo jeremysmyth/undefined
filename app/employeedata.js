@@ -45,6 +45,19 @@ getDepartments = async () => {
     )
 }
 
+getGrossPayReport = async () => {
+    return await db.query (
+        "SELECT Name, ROUND((Salary / 12) * 0.75, 2) as GrossPay" + 
+        " FROM Employee" + 
+        " LEFT JOIN SalesEmployee USING (EmployeeID)" + 
+        " WHERE SalesEmployee.EmployeeID IS NULL" +
+        " UNION" +
+        " SELECT Name, ROUND((Salary / 12 + CommissionRate *  TotalSales) * 0.75, 2) as GrossPay" +
+        " FROM Employee" + 
+        " INNER JOIN SalesEmployee USING (EmployeeID);"
+    )
+}
+
 exports.getAllEmployees = async () => {
     return await getEmployees()
 }
@@ -58,4 +71,8 @@ exports.getAllEmployeesPerDepartment = async (departmentId) => {
 }
 exports.getAllDepartments = async () => {
     return await getDepartments()
+}
+
+exports.getEmployeeGrossPay = async () => {
+    return await getGrossPayReport ()
 }
