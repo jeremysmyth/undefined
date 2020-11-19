@@ -30,12 +30,24 @@ getEmployees = async () => {
 }
 
 getEmployeesByDepartment = async (departmentId) => {
-    return await db.query (
-        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+    return await db.query ( 
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode," + 
+        " Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
         " FROM Employee, Department" + 
         " WHERE Employee.DepartmentID = ?" +
         " AND Department.DepartmentID = Employee.DepartmentID;",
         [departmentId]
+    )
+}
+
+getEmployeesSalesDepartment = async () => {
+    return await db.query (
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC," +
+        " Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName, SalesEmployee.CommissionRate, SalesEmployee.TotalSales" +
+        " FROM Employee, Department, SalesEmployee" + 
+        " WHERE Employee.DepartmentID = 4" +
+        " AND Department.DepartmentID = Employee.DepartmentID" +
+        " AND SalesEmployee.EmployeeID = Employee.EmployeeID;",
     )
 }
 
@@ -76,12 +88,20 @@ exports.addEmployee = async (newEmployee) => {
     let results = await db.query('INSERT INTO Employee SET ?', newEmployee)
     return results.insertId;
 }
+exports.addSalesEmployee = async (salesEmployee) => {
+    let results = await db.query('INSERT INTO SalesEmployee SET ?', salesEmployee)
+    return results.insertId;
+}
 exports.getAllEmployeesPerDepartment = async (departmentId) => {
     return await getEmployeesByDepartment (departmentId)
 }
 exports.getAllDepartments = async () => {
     return await getDepartments()
 }
+
+
+exports.getAllSalesEmployees = async () => {
+    return await getEmployeesSalesDepartment()
 
 exports.getEmployeeGrossPay = async () => {
     return await getGrossPayReport ()
