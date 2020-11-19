@@ -31,7 +31,8 @@ getEmployees = async () => {
 
 getEmployeesByDepartment = async (departmentId) => {
     return await db.query ( 
-        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode," + 
+        " Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
         " FROM Employee, Department" + 
         " WHERE Employee.DepartmentID = ?" +
         " AND Department.DepartmentID = Employee.DepartmentID;",
@@ -41,7 +42,8 @@ getEmployeesByDepartment = async (departmentId) => {
 
 getEmployeesSalesDepartment = async () => {
     return await db.query (
-        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC," +
+        " Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName, SalesEmployee.CommissionRate, SalesEmployee.TotalSales" +
         " FROM Employee, Department, SalesEmployee" + 
         " WHERE Employee.DepartmentID = 4" +
         " AND Department.DepartmentID = Employee.DepartmentID" +
