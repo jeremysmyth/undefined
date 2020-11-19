@@ -58,6 +58,16 @@ getGrossPayReport = async () => {
     )
 }
 
+getHighestSalesReport = async () => {
+    return await db.query (
+        "SELECT Employee.Name, SalesEmployee.TotalSales" + 
+        " FROM Employee, SalesEmployee" + 
+        " WHERE Employee.EmployeeID = SalesEmployee.EmployeeID" + 
+        " ORDER BY SalesEmployee.TotalSales DESC" +
+        " LIMIT 1;"
+    )
+}
+
 exports.getAllEmployees = async () => {
     return await getEmployees()
 }
@@ -75,4 +85,8 @@ exports.getAllDepartments = async () => {
 
 exports.getEmployeeGrossPay = async () => {
     return await getGrossPayReport ()
+}
+
+exports.getHighestSalesEmployee = async () => {
+    return await getHighestSalesReport()
 }
