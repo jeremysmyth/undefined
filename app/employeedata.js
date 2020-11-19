@@ -5,7 +5,7 @@ const util = require('util')
 let wrapDB = (dbconfig) => {
     const pool = mysql.createPool(dbconfig)
     return {
-        query (sql, args) {
+        query(sql, args) {
             console.log("Query attempted")
             return util.promisify(pool.query)
                 .call(pool, sql, args)

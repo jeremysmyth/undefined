@@ -2,10 +2,10 @@ const express = require('express')
 const router = express.Router()
 
 const employeedata = require('./employeedata')
+const validation = require('./validation')
 
 // Add your routes here - above the module.exports line
 router.get('/list-employees', async (req, res) => {
-
     if (req.query.departmentID) {
         let id = parseInt(req.query.departmentID)
         console.log(id)
@@ -22,10 +22,16 @@ router.get('/filter-by-department', async (req, res) => {
 })
 
 router.post('/addnewemployee', async (req, res) => {
-    
-    var employee = req.body
-    await employeedata.addEmployee(employee)
-    res.redirect('/list-employees')
+    var newEmployee = req.body
+    const validEmployee = validation.validateEmployee(newEmployee)
+    if (validEmployee.valid) {
+        await employeedata.addEmployee(validEmployee)
+        res.redirect('/list-employees')
+    }
+    else {
+        res.locals.errormessage = validEmployee.ErrorMessage
+        res.render('addnewemployee', req.body)
+    }
 })
 
 router.get('/gross-pay-report', async (req, res) => {
