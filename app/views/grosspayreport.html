@@ -18,7 +18,7 @@
             {% set employeerows = 
                 (employeerows.push([
                     { text: employee.Name }, 
-                    { text: employee.GrossPay }
+                    { text: "£" + employee.GrossPay }
                 ]), 
                 employeerows) %}
         {% endfor %}

@@ -32,4 +32,11 @@ router.get('/gross-pay-report', async (req, res) => {
     res.render('grosspayreport', { employees: await employeedata.getEmployeeGrossPay()})
 })
 
+router.get('/highest-sales-report', async (req, res) => {
+    let employee = await employeedata.getHighestSalesEmployee()
+    console.log(employee[0].Name)
+    console.log(employee[0].TotalSales)
+    res.render('highestsalesreport', {employee: employee[0]})
+})
+
 module.exports = router
