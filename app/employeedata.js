@@ -102,6 +102,7 @@ exports.getAllDepartments = async () => {
 
 exports.getAllSalesEmployees = async () => {
     return await getEmployeesSalesDepartment()
+}
 
 exports.getEmployeeGrossPay = async () => {
     return await getGrossPayReport ()
