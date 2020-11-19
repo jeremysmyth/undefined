@@ -1,7 +1,7 @@
 {% extends "layout_unbranded.html" %}
 
 {% block pageTitle %}
-    Employees Gross Pay Report
+    List of Projects to Employees
 {% endblock %}
 
 {% block beforeContent %}
@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="add-background">
-    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>Employees Gross Pay Report</h2>
+    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>List of Projects to Employees</h2>
 
     {% if employees and employees.length > 0 %}
         {% set employeerows = [] %}
@@ -18,8 +18,8 @@
         {% for employee in employees | sort(attribute='name') %}
             {% set employeerows = 
                 (employeerows.push([
-                    { text: employee.Name }, 
-                    { text: "£" + employee.GrossPay }
+                    { text: employee.ProjectName }, 
+                    { text: employee.Name }
                 ]), 
                 employeerows) %}
         {% endfor %}
@@ -27,13 +27,13 @@
         {{ govukTable({
             classes: govuk-table,
             head: [ 
-                { text: "Name" },
-                { text: "Gross Pay"} ],
+                { text: "Project Name" },
+                { text: "Employee Name" }],
             rows: employeerows })
         }}
 
     {% else %}
-        <p>There are no Sales Employees</p>
+        <p>There are no Employees</p>
     {% endif %}
 </div>
 {% endblock %}

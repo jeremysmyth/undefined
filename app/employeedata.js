@@ -25,7 +25,7 @@ getEmployees = async () => {
     return await db.query (
         "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
         " FROM Employee, Department " +
-        " WHERE Employee.DepartmentID = Department.DepartmentID;"
+        " WHERE Employee.DepartmentID = Department.DepartmentID ORDER BY Employee.EmployeeID ASC;"
     )
 }
 
@@ -80,6 +80,22 @@ getHighestSalesReport = async () => {
     )
 }
 
+getEmployeeProjects = async () => {
+    return await db.query (
+        "SELECT Project.ProjectName, Employee.Name" + 
+        " FROM Project, Employee, Assignment" + 
+        " WHERE Project.ProjectID = Assignment.ProjectID" + 
+        " AND Employee.EmployeeID = Assignment.EmployeeID" +
+        " ORDER BY Project.ProjectName;"
+    )
+}
+
+getAllProjects = async () => {
+    return await db.query (
+        "SELECT * FROM Project;"
+    )
+}
+
 exports.getAllEmployees = async () => {
     return await getEmployees()
 }
@@ -89,6 +105,7 @@ exports.addEmployee = async (newEmployee) => {
     return results.insertId;
 }
 exports.addSalesEmployee = async (salesEmployee) => {
+    console.log(salesEmployee)
     let results = await db.query('INSERT INTO SalesEmployee SET ?', salesEmployee)
     return results.insertId;
 }
@@ -98,7 +115,6 @@ exports.getAllEmployeesPerDepartment = async (departmentId) => {
 exports.getAllDepartments = async () => {
     return await getDepartments()
 }
-
 
 exports.getAllSalesEmployees = async () => {
     return await getEmployeesSalesDepartment()
@@ -110,4 +126,22 @@ exports.getEmployeeGrossPay = async () => {
 
 exports.getHighestSalesEmployee = async () => {
     return await getHighestSalesReport()
+}
+
+exports.addProject = async (project) => {
+    let results = await db.query('INSERT INTO Project SET ?', project)
+    return results.insertId;
+}
+
+exports.getProjectEmployees = async () => {
+    return await getEmployeeProjects ()
+}
+
+exports.getProjects = async () => {
+    return await getAllProjects()
+}
+
+exports.addEmployeeProject = async (employeeProject) => {
+    let results = await db.query('INSERT INTO Assignment SET ?', employeeProject)
+    return results.insertId;
 }

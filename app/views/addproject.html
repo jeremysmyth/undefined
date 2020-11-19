@@ -1,14 +1,15 @@
 {% extends "layout_unbranded.html" %}
 
 {% block pageTitle %}
-    Add a sales employee
+    Add a new project
 {% endblock %}
 
 {% block beforeContent %}
-  <a class="govuk-back-link" href="/index">Back</a>
+  <a class="govuk-back-link" href="/">Back</a>
 {% endblock %}
 
 {% block content %}
+<div class="add-background">
 
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
@@ -19,10 +20,10 @@
     <div class="govuk-error-message">{{ errormessage }}</div> 
 {% endif %}
 
-<form method=post action="/addsalesemployee">
+<form method=post action="/addnewproject" >
     {% call govukFieldset({
     legend: {
-        text: "Add a new sales employee",
+        text: "Add a new project",
         classes: "govuk-fieldset__legend--l",
         isPageHeading: true
     }
@@ -30,38 +31,20 @@
 
     {{ govukInput({
         label: {
-        html: 'Employee ID:'
+        html: 'Project Name:'
         },
-        id: "id",
-        name: "EmployeeID", 
-        value: EmployeeID
-    }) }}
-
-    {{ govukInput({
-        label: {
-        html: 'Commission Rate:'
-        },
-        id: "commission",
-        name: "CommissionRate",
-        value: CommissionRate
-    }) }}
-
-    {{ govukInput({
-        label: {
-        html: 'Total Sales:'
-        },
-        id: "sales",
-        name: "TotalSales",
-        value: TotalSales
+        id: "projectname",
+        name: "ProjectName",
+        value: ProjectName
     }) }}
 
 {% endcall %}
 
     {{ govukButton({
-    text: "Add",
-    preventDoubleClick: true
+        text: "Add",
+        preventDoubleClick: true
     }) }}
 
 </form>
-
+</div>
 {% endblock %}
