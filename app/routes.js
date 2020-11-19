@@ -28,4 +28,8 @@ router.post('/addnewemployee', async (req, res) => {
     res.redirect('/list-employees')
 })
 
+router.get('/gross-pay-report', async (req, res) => {
+    res.render('grosspayreport', { employees: await employeedata.getEmployeeGrossPay()})
+})
+
 module.exports = router
