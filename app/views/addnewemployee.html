@@ -20,9 +20,10 @@ Add a new employee
     <div class="govuk-error-message">{{ errormessage }}</div>
     {% endif %}
 
-    <form method=post action="/addnewemployee">
-        {% call govukFieldset({
-        legend: {
+<form method=post action="/addnewemployee" >
+    {% call govukFieldset({
+    legend: {
+
         text: "Add a new employee",
         classes: "govuk-fieldset__legend--l",
         isPageHeading: true
@@ -33,71 +34,82 @@ Add a new employee
         label: {
         html: 'Employee Number:'
         },
-        id: "id",
-        name: "EmployeeNumber"
-        }) }}
-
+        id: "employeeID",
+        classes: "govuk-input--width-10",
+        name: "EmployeeNumber",
+        value: EmployeeNumber
+    }) }}
         {{ govukInput({
         label: {
         html: 'Employee Name:'
         },
         id: "name",
-        name: "Name"
-        }) }}
-
+        name: "Name",
+        value: Name
+    }) }}
         {{ govukInput({
         label: {
         text: "Address:"
         },
         classes: "govuk-!-width-two-thirds",
-        id: "countrycode",
-        name: "Address"
-        }) }}
+        id: "address",
+        name: "Address",
+        value: Address
+    }) }}
 
         {{ govukInput({
         label: {
         text: "PostCode:"
         },
-        classes: "govuk-!-width-two-thirds",
-        id: "district",
-        name: "PostCode"
-        }) }}
+        classes: "govuk-input--width-10",
+        id: "postcode",
+        name: "PostCode",
+        value: PostCode,
+        pattern: '^([A-PR-UWYZ](([0-9](([0-9]|[A-HJKSTUW])?)?)|([A-HK-Y][0-9]([0-9]|[ABEHMNPRVWXY])?)) ?[0-9][ABD-HJLNP-UW-Z]{2})$'
+    }) }}
+
 
         {{ govukInput({
         label: {
         text: "NI Number:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
-        name: "NI"
-        }) }}
+        id: "niNumber",
+        name: "NI",
+        value: NI,
+        pattern: '^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$'
+    }) }}
 
         {{ govukInput({
         label: {
         text: "IBAN:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
-        name: "IBAN"
-        }) }}
+        name: "IBAN",
+        value: IBAN
+    }) }}
 
         {{ govukInput({
         label: {
         text: "BIC:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
-        name: "BIC"
-        }) }}
+        name: "BIC",
+        value: BIC
+    
+    }) }}
 
         {{ govukInput({
         label: {
         text: "Salary:"
         },
         classes: "govuk-input--width-10",
-        id: "population",
-        name: "Salary"
-        }) }}
+        id: "salary",
+        name: "Salary",
+        inputmode: "numeric",
+        type: "number",
+        value: Salary
+    }) }}
 
         {{ govukSelect({
         id: "DepartmentID",
@@ -106,19 +118,19 @@ Add a new employee
         text: "Select a department"
         },
         items: [
-        {
-        value: "1",
-        text: "Finance",
-        selected: true
-        },
-        {
-        value: "2",
-        text: "Digital Services"
-        },
-        {
-        value: "3",
-        text: "HR"
-        }
+            {
+            value: "1",
+            text: "Finance"
+
+            },
+            {
+            value: "2",
+            text: "Digital Services"
+            },
+            {
+            value: "3",
+            text: "HR"
+            }
         ]
         }) }}
 
