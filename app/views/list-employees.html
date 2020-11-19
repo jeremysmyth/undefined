@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block content %}
-    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>List of Cities</h2>
+    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>List of Employees</h2>
 
     {% if employees and employees.length > 0 %}
-        {% set cityrows = [] %}
+        {% set employeerows = [] %}
         
         {% for employee in employees | sort(attribute='name') %}
             {% set employeerows = 
