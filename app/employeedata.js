@@ -89,6 +89,7 @@ exports.addEmployee = async (newEmployee) => {
     return results.insertId;
 }
 exports.addSalesEmployee = async (salesEmployee) => {
+    console.log(salesEmployee)
     let results = await db.query('INSERT INTO SalesEmployee SET ?', salesEmployee)
     return results.insertId;
 }
