@@ -51,10 +51,16 @@ router.get('/highest-sales-report', async (req, res) => {
 })
 
 router.post('/addsalesemployee', async (req, res) => {
-    
-    var employee = req.body
-    await employeedata.addSalesEmployee(employee)
-    res.redirect('/list-employees')
+    var salesEmployee = req.body
+    const validSales = validation.validateSales(salesEmployee)
+    if (validSales.valid) {
+        await employeedata.addSalesEmployee(validSales.salesEmployee)
+        res.redirect('/list-employees')
+    }
+    else {
+        res.locals.errormessage = validSales.ErrorMessage
+        res.render('addsalesemployee', req.body)
+    }
 })
 
 module.exports = router
