@@ -43,6 +43,10 @@ exports.getAllEmployees = async () => {
     return await getEmployees()
 }
 
+exports.addEmployee = async (newEmployee) => {
+    let results = await db.query('INSERT INTO Employee SET ?', newEmployee)
+    return results.insertId;
+}
 exports.getAllEmployeesPerDepartment = async (departmentId) => {
     return await getEmployeesByDepartment (departmentId)
 }
