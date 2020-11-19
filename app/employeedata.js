@@ -23,11 +23,36 @@ const db = wrapDB(dbconfig)
 // which will be called from the router when reading the list-employees template
 getEmployees = async () => {
     return await db.query (
-        "SELECT *" +
-        " FROM Employee;"
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+        " FROM Employee, Department " +
+        " WHERE Employee.DepartmentID = Department.DepartmentID;"
     )
 }
 
-exports.getEmployeesByDepartment = async () => {
+getEmployeesByDepartment = async (departmentId) => {
+    return await db.query (
+        "SELECT Employee.EmployeeID, Employee.Name, Employee.Address, Employee.PostCode, Employee.NI, Employee.IBAN, Employee.BIC, Employee.Salary, Employee.EmployeeNumber, Department.DepartmentName" +
+        " FROM Employee, Department" + 
+        " WHERE Employee.DepartmentID = ?" +
+        " AND Department.DepartmentID = Employee.DepartmentID;",
+        [departmentId]
+    )
+}
+
+getDepartments = async () => {
+    return await db.query (
+        "SELECT * FROM Department"
+    )
+}
+
+exports.getAllEmployees = async () => {
     return await getEmployees()
+}
+
+exports.getAllEmployeesPerDepartment = async (departmentId) => {
+    return await getEmployeesByDepartment (departmentId)
+}
+
+exports.getAllDepartments = async () => {
+    return await getDepartments()
 }
