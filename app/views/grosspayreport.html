@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="add-background">
     <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>Employees Gross Pay Report</h2>
 
     {% if employees and employees.length > 0 %}
@@ -34,5 +35,5 @@
     {% else %}
         <p>There are no Sales Employees</p>
     {% endif %}
-
+</div>
 {% endblock %}

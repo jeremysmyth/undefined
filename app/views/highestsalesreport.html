@@ -1,16 +1,19 @@
 {% extends "layout_unbranded.html" %}
 
 {% block pageTitle %}
-    Highest Sales Report
+Highest Sales Report
 {% endblock %}
 
 {% block beforeContent %}
-  <a class="govuk-back-link" href="/">Back</a>
+<a class="govuk-back-link" href="/">Back</a>
 {% endblock %}
 
 {% block content %}
-    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>Highest Sales Report</h2>
+<div class="highest-sales add-background">
+    <h2 style='font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif'>Highest Sales
+        Report</h2>
 
-    <p>Employee: <strong><u>{{employee.Name}}</u></strong> has the highest sales with <strong><u>{{employee.TotalSales}}</u></strong> many sales.</p>
-
+    <p>Employee: <strong><u>{{employee.Name}}</u></strong> has the highest sales with
+        <strong><u>{{employee.TotalSales}}</u></strong> many sales.</p>
+</div>
 {% endblock %}
