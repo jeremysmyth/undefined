@@ -1,0 +1,133 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+    Add a new employee
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/">Back</a>
+{% endblock %}
+
+{% block content %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% if errormessage %} 
+    <div class="govuk-error-message">{{ errormessage }}</div> 
+{% endif %}
+
+<form method=post action="/addnewemployee">
+    {% call govukFieldset({
+    legend: {
+        text: "Add a new employee",
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+    }
+    }) %}
+
+    {{ govukInput({
+        label: {
+        html: 'Employee Number:'
+        },
+        id: "id",
+        name: "EmployeeNumber"
+    }) }}
+
+    {{ govukInput({
+        label: {
+        html: 'Employee Name:'
+        },
+        id: "name",
+        name: "Name"
+    }) }}
+
+    {{ govukInput({
+        label: {
+        text: "Address:"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "countrycode",
+        name: "Address"
+    }) }}
+
+    {{ govukInput({
+        label: {
+        text: "PostCode:"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "district",
+        name: "PostCode"
+    }) }}
+
+    {{ govukInput({
+        label: {
+        text: "NI Number:"
+        },
+        classes: "govuk-input--width-10",
+        id: "population",
+        name: "NI"
+    }) }}
+
+    {{ govukInput({
+        label: {
+        text: "IBAN:"
+        },
+        classes: "govuk-input--width-10",
+        id: "population",
+        name: "IBAN"
+    }) }}
+
+    {{ govukInput({
+        label: {
+        text: "BIC:"
+        },
+        classes: "govuk-input--width-10",
+        id: "population",
+        name: "BIC"
+    }) }}
+
+    {{ govukInput({
+        label: {
+        text: "Salary:"
+        },
+        classes: "govuk-input--width-10",
+        id: "population",
+        name: "Salary"
+    }) }}
+
+    {{ govukSelect({
+        id: "DepartmentID",
+        name: "DepartmentID",
+        label: {
+            text: "Select a department"
+        },
+        items: [
+            {
+            value: "1",
+            text: "Finance",
+            selected: true
+            },
+            {
+            value: "2",
+            text: "Digital Services"
+            },
+            {
+            value: "3",
+            text: "HR"
+            }
+        ]
+    }) }}
+
+{% endcall %}
+
+    {{ govukButton({
+    text: "Add",
+    preventDoubleClick: true
+    }) }}
+
+</form>
+
+{% endblock %}
