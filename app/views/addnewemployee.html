@@ -34,7 +34,8 @@
         },
         id: "employeeID",
         classes: "govuk-input--width-10",
-        name: "EmployeeNumber"
+        name: "EmployeeNumber",
+        value: EmployeeNumber
     }) }}
 
     {{ govukInput({
@@ -42,7 +43,8 @@
         html: 'Employee Name:'
         },
         id: "name",
-        name: "Name"
+        name: "Name",
+        value: Name
     }) }}
 
     {{ govukInput({
@@ -51,7 +53,8 @@
         },
         classes: "govuk-!-width-two-thirds",
         id: "address",
-        name: "Address"
+        name: "Address",
+        value: Address
     }) }}
 
     {{ govukInput({
@@ -60,7 +63,9 @@
         },
         classes: "govuk-input--width-10",
         id: "postcode",
-        name: "PostCode"
+        name: "PostCode",
+        value: PostCode,
+        pattern: '([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})'
     }) }}
 
     {{ govukInput({
@@ -69,7 +74,9 @@
         },
         classes: "govuk-input--width-10",
         id: "niNumber",
-        name: "NI"
+        name: "NI",
+        value: NI,
+        pattern: '^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$'
     }) }}
 
     {{ govukInput({
@@ -77,7 +84,8 @@
         text: "IBAN:"
         },
         classes: "govuk-input--width-10",
-        name: "IBAN"
+        name: "IBAN",
+        value: IBAN
     }) }}
 
     {{ govukInput({
@@ -85,7 +93,9 @@
         text: "BIC:"
         },
         classes: "govuk-input--width-10",
-        name: "BIC"
+        name: "BIC",
+        value: BIC
+    
     }) }}
 
     {{ govukInput({
@@ -95,7 +105,9 @@
         classes: "govuk-input--width-10",
         id: "salary",
         name: "Salary",
-        inputmode: "numeric"
+        inputmode: "numeric",
+        type: "number",
+        value: Salary
     }) }}
 
     {{ govukSelect({
@@ -107,8 +119,8 @@
         items: [
             {
             value: "1",
-            text: "Finance",
-            selected: true
+            text: "Finance"
+
             },
             {
             value: "2",
